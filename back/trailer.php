@@ -8,7 +8,7 @@
         <div style='width:25%;background:#eee;margin:0 1px'>操作</div>
     </div>
     <form action="./api/edit_trailer.php" method="post">
-    <div>
+    <div style='height:210px;overflow:auto'>
         <?php
         $ts=$Trailer->all(" ORDER BY `rank`");
 
@@ -26,13 +26,14 @@
                 <input type="button" value="往下">
             </div>
             <div style='width:25%;margin:0 1px'>
-                <input type="checkbox" name="sh[]" value="<?=$t['id'];?>">顯示&nbsp;
+                <input type="checkbox" name="sh[]" value="<?=$t['id'];?>" <?=($t['sh']==1)?'checked':''?>>顯示&nbsp;
                 <input type="checkbox" name="del[]" value="<?=$t['id'];?>">刪除&nbsp;
                 <select name="ani[]">
-                    <option value="1">淡入淡出</option>
-                    <option value="2">滑入滑出</option>
-                    <option value="3">縮放</option>
+                    <option value="1" <?=($t['ani']==1)?'selected':'';?>>淡入淡出</option>
+                    <option value="2" <?=($t['ani']==2)?'selected':'';?>>滑入滑出</option>
+                    <option value="3" <?=($t['ani']==3)?'selected':'';?>>縮放</option>
                 </select>
+                <input type="hidden" name="id[]" value="<?=$t['id'];?>">
             </div>
         </div>
         <?php
