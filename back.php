@@ -1,7 +1,7 @@
 <?php
 include_once "./api/base.php";
 
-if(!empty($_POST['acc'])){
+if(!empty($_POST)){
     if($_POST['acc']=='admin' && $_POST['pw']=='1234'){
         $_SESSION['login']=1;
 
