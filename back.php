@@ -1,3 +1,17 @@
+<?php
+include_once "./api/base.php";
+
+if(!empty($_POST['acc'])){
+    if($_POST['acc']=='admin' && $_POST['pw']=='1234'){
+        $_SESSION['login']=1;
+
+    }else{
+        //echo "<script>alert('帳號或密碼錯誤')</script>";
+        $error="<span style='color:red'>帳號或密碼錯誤</span>";
+    }
+}
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0055)?do=admin -->
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -27,14 +41,24 @@
   </div>
   <div id="mm">
 
-    <?php
+  <?php
+  if(isset($_SESSION['login'])){
     $do=$_GET['do']??'main';
     $file="./back/".$do.".php";
+    include "./back/nav.php";
+    
     if(file_exists($file)){
       include $file;
     }else{
       include "./back/main.php";
     }
+  }else{
+    if(isset($error)){
+      echo $error;
+    }
+    include "./back/login.php";
+    
+  }
 
   ?>
   </div>
