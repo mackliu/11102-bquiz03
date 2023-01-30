@@ -26,7 +26,16 @@
     </marquee>
   </div>
   <div id="mm">
-  <?php include "./front/main.php";?>
+  <?php 
+    $do=$_GET['do']??'main';
+    $file="./front/".$do.".php";
+    if(file_exists($file)){
+      include $file;
+    }else{
+      include "./front/main.php";
+    }
+
+  ?>
   </div>
   <div id="bo"> ©Copyright 2010~2014 ABC影城 版權所有 </div>
 </div>
