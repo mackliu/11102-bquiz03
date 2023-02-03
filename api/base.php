@@ -6,6 +6,12 @@ class DB{
     protected $dsn="mysql:host=localhost;charset=utf8;dbname=db08";
     protected $table;
     protected $pdo;
+    public $level=[
+        1=>'普遍級',
+        2=>'輔導級',
+        3=>'保護級',
+        4=>'限制級'
+    ];
 
     public function __construct($table)
     {
