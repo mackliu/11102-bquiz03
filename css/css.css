@@ -21,13 +21,13 @@ input[type='text'],input[type='file'],input[type='password'],textarea,.button
 }
 input[type='button'],input[type='submit'],input[type='reset'],button,.button
 {
-	min-width:70px;
-	min-height:40px;
+	min-width:40px;
+	min-height:20px;
 	background:#000;
 	color:#fff;
 	border:none;
 	cursor:pointer;
-	font-size:18px;
+	font-size:14px;
 	text-decoration:none;
 }
 input[type='button']:hover,input[type='submit']:hover,input[type='reset']:hover,button:hover,.button:hover

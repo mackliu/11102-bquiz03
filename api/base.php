@@ -83,6 +83,7 @@ class DB{
     }
 
     public function count(...$arg){
+        dd($arg);
         return $this->math('count',...$arg); //...為解構賦值
     }
 
@@ -132,7 +133,7 @@ class DB{
                 $sql=$sql . $con;
             }
         }
-        //echo $sql;
+
         return $this->pdo->query($sql)->fetchColumn();
     }
 
@@ -149,7 +150,7 @@ function to($url){
 }
 
 function q($sql){
-    $pdo=new PDO("mysql:host=localhost;charset=utf8;dbname=db10",'root','');
+    $pdo=new PDO("mysql:host=localhost;charset=utf8;dbname=db08",'root','');
     return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
 
