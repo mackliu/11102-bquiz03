@@ -30,8 +30,7 @@
             </div>
             <div style='width:25%;margin:0 1px'>
                 <input type="checkbox" name="sh[]" value="<?=$t['id'];?>" <?=($t['sh']==1)?'checked':''?>>顯示&nbsp;
-                <input type="checkbo
-                x" name="del[]" value="<?=$t['id'];?>">刪除&nbsp;
+                <input type="checkbox" name="del[]" value="<?=$t['id'];?>">刪除&nbsp;
                 <select name="ani[]">
                     <option value="1" <?=($t['ani']==1)?'selected':'';?>>淡入淡出</option>
                     <option value="2" <?=($t['ani']==2)?'selected':'';?>>滑入滑出</option>

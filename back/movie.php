@@ -8,7 +8,7 @@ foreach($rows as $key => $row){
     $next=($key==(count($rows)-1))?$row['id']:$rows[$key+1]['id'];
 ?>
 
-<div style="display:flex;width:95%;margin:2px auto;padding:2px">
+<div style="display:flex;width:90%;margin:2px auto;padding:2px">
     <div style="width:15%">
         <img src="./upload/<?=$row['poster'];?>" style="width:80px">
     </div>
