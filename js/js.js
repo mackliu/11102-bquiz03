@@ -17,3 +17,10 @@ function del(table,id){
         })
     }
 }
+
+function  showMovie(id){
+
+    $.post("./api/show_movie.php",{id},()=>{
+        location.reload();
+    })
+}
