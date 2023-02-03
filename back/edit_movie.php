@@ -3,7 +3,7 @@
 $row=$Movie->find($_GET['id']);
 $ondate=explode('-',$row['ondate']);
 ?>
-<form action="./api/edit_movie.php" method="post" enctype="multipart/form-data">
+<form action="./api/save_movie.php" method="post" enctype="multipart/form-data">
 <div style="width:90%;margin:auto">
     <div style="display:flex">
         <div>影片資料</div>
