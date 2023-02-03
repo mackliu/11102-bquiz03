@@ -69,15 +69,3 @@
 
 </form>
 
-<script>
-
-function sw(table,id1,id2){
-
-    $.post("./api/sw.php",{table,id1,id2},()=>{
-        location.reload();
-    })
-
-}
-
-
-</script>

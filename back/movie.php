@@ -23,22 +23,21 @@ foreach($rows as $key => $row){
         </div>
         <div>
             <button onclick="showMovie(<?=$row['id'];?>)"><?=($row['sh']==1)?'顯示':'隱藏';?></button>
-            <button onclick="sw('movie',<?=$row['id'];?>,<?=$prev;?>)">往上</button>
-            <button onclick="sw('movie',<?=$row['id'];?>,<?=$next;?>)">往下</button>
+            <button onclick="sw('Movie',<?=$row['id'];?>,<?=$prev;?>)">往上</button>
+            <button onclick="sw('Movie',<?=$row['id'];?>,<?=$next;?>)">往下</button>
             <button onclick="location.href='?do=edit_movie&id=<?=$row['id'];?>'">編輯電影</button>
-            <button onclick="del(<?=$row['id'];?>)">刪除電影</button>
+            <button onclick="del('Movie',<?=$row['id'];?>)">刪除電影</button>
         </div>
         <div>
             劇情介紹:<?=$row['intro'];?>
         </div>
     </div>
-
-
 </div>
-
-
-
-
 <?php
 }
 ?>
+
+<script>
+
+
+</script>
