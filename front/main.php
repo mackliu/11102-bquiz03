@@ -8,11 +8,15 @@
  .pos{
   width:210px;
   height:280px;
-  background-color: white;
+  /* background-color: white; */
   margin: auto;
-  position: relative;
+  position: absolute;
  }
 
+ .pos img{
+    width: 100%;
+    height: 260px;
+ }
 .controls{
   width: 420px;
   height:110px;
@@ -21,6 +25,8 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  position:absolute;
+  bottom:0;
 }
 .left,.right{
 /*   width:40px;
@@ -43,6 +49,19 @@
   width:320px;
   background:green;
   height:100px;
+  display: flex;
+}
+
+.btn{
+  width:80px;
+  font-size:12px;
+  text-align: center;
+}
+
+.btn img{
+  width:100%;
+  height:80px;
+
 }
 
 </style>
@@ -52,13 +71,32 @@
       <div class="rb tab" style="width:95%;">
         <div id="poster">
           <div class="lists">
+            <?php
+              $posters=$Trailer->all(['sh'=>1]);
+              foreach($posters as $poster){
+            ?>
             <div class='pos'>
-              <img src="" alt="">
+              <img src="./upload/<?=$poster['img'];?>" alt="">
+              <div><?=$poster['name'];?></div>
             </div>
+            <?php
+                }
+            ?>
           </div>
           <div class="controls">
             <div class='left'></div>
-            <div class='btns'></div>
+            <div class='btns'>
+            <?php
+              foreach($posters as $poster){
+            ?>
+              <div class="btn">
+                <img src="./upload/<?=$poster['img'];?>" alt="">
+                <div><?=$poster['name'];?></div>
+              </div>
+            <?php
+              }
+            ?>
+            </div>
             <div class='right'></div>
           </div>
         </div>
