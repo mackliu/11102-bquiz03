@@ -1,11 +1,66 @@
+<style>
+ #poster{
+  width: 420px;
+  height:400px;
+  position: relative;
+ } 
+
+ .pos{
+  width:210px;
+  height:280px;
+  background-color: white;
+  margin: auto;
+  position: relative;
+ }
+
+.controls{
+  width: 420px;
+  height:110px;
+  background-color: lightblue;
+  margin: 10px auto 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.left,.right{
+/*   width:40px;
+  height:40px; */
+/*   background-color: red; */
+}
+
+.left,.right{
+  border-top:20px solid transparent;
+  border-bottom:20px solid transparent;
+}
+.left{
+  border-right:20px solid green;
+}
+.right{
+  border-left:20px solid blue;
+}
+
+.btns{
+  width:320px;
+  background:green;
+  height:100px;
+}
+
+</style>
+
 <div class="half" style="vertical-align:top;">
       <h1>預告片介紹</h1>
       <div class="rb tab" style="width:95%;">
-        <div id="abgne-block-20111227">
-          <ul class="lists">
-          </ul>
-          <ul class="controls">
-          </ul>
+        <div id="poster">
+          <div class="lists">
+            <div class='pos'>
+              <img src="" alt="">
+            </div>
+          </div>
+          <div class="controls">
+            <div class='left'></div>
+            <div class='btns'></div>
+            <div class='right'></div>
+          </div>
         </div>
       </div>
     </div>
@@ -18,9 +73,10 @@
           <?php
             $today=date("Y-m-d");
             $ondate=date("Y-m-d",strtotime("-2 days"));
-            ///$rows=$Movie->all(['sh'=>1]," && `ondate` >= '$ondate' && `ondate` <= '$today' order by `rank`");
-
-            $all=q("select count(*) as 'total' from `movie` where `sh`=1 && `ondate` between '$ondate' AND '$today'")[0]['total'];
+            //$rows=$Movie->all(['sh'=>1]," && `ondate` >= '$ondate' && `ondate` <= '$today' order by `rank`");
+            
+            //$all=q("select count(*) as 'total' from `movie` where `sh`=1 && `ondate` between '$ondate' AND '$today'")[0]['total'];
+            $all=$Movie->count(" where `sh`=1 && `ondate` between '$ondate' AND '$today'");
             $div=4;
             $pages=ceil($all/$div);
             $now=$_GET['p']??1;

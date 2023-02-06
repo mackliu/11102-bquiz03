@@ -89,7 +89,7 @@ class DB{
     }
 
     public function count(...$arg){
-        dd($arg);
+        //dd($arg);
         return $this->math('count',...$arg); //...為解構賦值
     }
 
