@@ -5,11 +5,17 @@
   position: relative;
  } 
 
+ .lists{
+  width:210px;
+  height:280px;
+  position: relative;
+  margin: auto; /*讓海報維持在中間 */
+  overflow: hidden;
+ }
  .pos{
   width:210px;
   height:280px;
   /* background-color: white; */
-  margin-left: 105px;  /*讓海報維持在中間 */
   position: absolute;
   text-align: center;
   display: none;
@@ -74,10 +80,10 @@
         <div id="poster">
           <div class="lists">
             <?php
-              $posters=$Trailer->all(['sh'=>1]);
+              $posters=$Trailer->all(['sh'=>1]," order by rank");
               foreach($posters as $poster){
             ?>
-            <div class='pos'>
+            <div class='pos' data-ani="<?=$poster['ani'];?>">
               <img src="./upload/<?=$poster['img'];?>" alt="">
               <div><?=$poster['name'];?></div>
             </div>
@@ -121,21 +127,37 @@
 
             $(".btn").animate({right:80*p});
         })
-/*       $(".right").on("click",function(){
-          
-        if((p+1)<=btns-4) 
-          p=p+1;
 
-          $(".btn").css({right:80*p});
-      })
-      $(".left").on("click",function(){
-          
-        if((p-1)>=0)
-          p=p-1;
+        let now=0;
+        let counter=setInterval(()=>{
+          ani();
+        },3000);
 
-          $(".btn").css({right:80*p});
-      })
- */
+
+        function ani(){
+              now=$(".pos:visible").index();
+              next=(now+1<=$(".pos").length-1)?now+1:0;
+          let AniType=$('.pos').eq(next).data('ani');
+          //console.log("now=>"+now+','+"next=>"+next+","+"ani=>"+AniType);
+          switch(AniType){
+              case 1:
+                $(".pos").eq(now).fadeOut(1000,()=>{
+                    $(".pos").eq(next).fadeIn(1000);
+                  });
+              break;
+              case 2:
+                $(".pos").eq(now).hide(1000,()=>{
+                    $(".pos").eq(next).show(1000);
+                  });
+              break;
+              case 3:
+                $(".pos").eq(now).slideUp(1000,()=>{
+                    $(".pos").eq(next).slideDown(1000);
+                  });
+              break;
+          }
+        }
+
     </script>
 
     <div class="half">
