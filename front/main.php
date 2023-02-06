@@ -109,19 +109,33 @@
        
       let btns=$(".btn").length;
       let p=0;
-      $(".right").on("click",function(){
+      $(".right,.left").on("click",function(){
           
-        if((p+1)<=btns-4)
+        if($(this).hasClass('left')){
+          //if(p - 1 >= 0) 
+            p=(p - 1 >= 0)? p-1 : p;
+        }else{
+         // if(p + 1 <= btns - 4) 
+            p=(p + 1 <= btns - 4)? p+1 : p;
+        }
+
+            $(".btn").animate({right:80*p});
+        })
+/*       $(".right").on("click",function(){
+          
+        if((p+1)<=btns-4) 
           p=p+1;
+
           $(".btn").css({right:80*p});
       })
       $(".left").on("click",function(){
           
         if((p-1)>=0)
           p=p-1;
+
           $(".btn").css({right:80*p});
       })
-
+ */
     </script>
 
     <div class="half">
