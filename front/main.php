@@ -12,6 +12,7 @@
   margin-left: 105px;  /*讓海報維持在中間 */
   position: absolute;
   text-align: center;
+  display: none;
  }
 
  .pos img{
@@ -56,6 +57,7 @@
   flex-shrink: 0;   /*讓子元素維持自己的寬度 */
   box-sizing: border-box;  /*讓元件總寬度不受padding影嚮 */
   padding:3px;
+  position:relative;
 }
 
 .btn img{
@@ -102,7 +104,25 @@
         </div>
       </div>
     </div>
+    <script>
+      $(".pos").eq(0).show();
+       
+      let btns=$(".btn").length;
+      let p=0;
+      $(".right").on("click",function(){
+          
+        if((p+1)<=btns-4)
+          p=p+1;
+          $(".btn").css({right:80*p});
+      })
+      $(".left").on("click",function(){
+          
+        if((p-1)>=0)
+          p=p-1;
+          $(".btn").css({right:80*p});
+      })
 
+    </script>
 
     <div class="half">
       <h1>院線片清單</h1>
