@@ -12,6 +12,7 @@
   margin-left: 105px;  /*讓海報維持在中間 */
   position: absolute;
   text-align: center;
+  display:none;
  }
 
  .pos img{
@@ -84,12 +85,12 @@
             ?>
           </div>
           <div class="controls">
-            <div class='left'></div>
+            <div class='left' onclick="pp(1)"></div>
             <div class='btns'>
             <?php
-              foreach($posters as $poster){
+              foreach($posters as $key => $poster){
             ?>
-              <div class="btn">
+              <div class="btn" id="pos<?=$key;?>">
                 <img src="./upload/<?=$poster['img'];?>" alt="">
                 <div><?=$poster['name'];?></div>
               </div>
@@ -97,11 +98,33 @@
               }
             ?>
             </div>
-            <div class='right'></div>
+            <div class='right' onclick="pp(2)"></div>
           </div>
         </div>
       </div>
     </div>
+
+<script>
+$(".pos").eq(0).show();
+
+var nowpage=0,num=<?=count($posters);?>;
+function pp(x)
+{
+  var s,t;
+  if(x==1&&nowpage-1>=0)
+  {nowpage--;}
+  if(x==2 && (nowpage+1)<=(num*1-4))
+  {nowpage++;}
+  $(".btn").hide()
+  for(s=0;s<=3;s++)
+  {
+    t=s*1+nowpage*1;
+    $("#pos"+t).show()
+  }
+}
+pp(1)
+
+</script>
 
 
     <div class="half">
