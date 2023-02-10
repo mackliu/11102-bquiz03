@@ -1,6 +1,7 @@
 <?php  include_once "base.php";
 
 
+$bookings=[3,6,18,19,11,14];
 
 ?>
 
@@ -50,11 +51,19 @@
     <div class="seats">
         <?php
             for($i=0;$i<20;$i++){
-                echo "<div class='null-seat'>";
+                if(in_array($i,$bookings)){
+                    
+                    echo "<div class='booking-seat'>";
+                }else{
+                    echo "<div class='null-seat'>";
+
+                }
                     echo "<div>";
                     echo   (floor($i/5)+1) . "排". ($i%5 +1 ) ."號";
                     echo "</div>";
-                echo "<input type='checkbox' value='$i'>";
+                if(!in_array($i,$bookings)){
+                    echo "<input type='checkbox' value='$i'>";
+                }
                 echo "</div>";
             }
         ?>
