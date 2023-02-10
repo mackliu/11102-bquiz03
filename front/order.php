@@ -27,14 +27,23 @@
 <script>
 
 
+
 getMovies();
 
 function getMovies(){
+    let params={}
+    location.href.split("?")[1].split("&").forEach(item => { params[item.split("=")[0]]=item.split("=")[1] })
+
     $.get("./api/get_movies.php",(movies)=>{
         $("#movie").html(movies)
-
+        if(params.id){
+            $(`#movie option[value="${params.id}"]`).attr("selected",true)
+        }
     })
 }
 
+function getDays(){
+
+}
 
 </script>
