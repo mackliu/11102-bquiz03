@@ -10,7 +10,7 @@
     <tr>
         <td>日期:</td>
         <td>
-            <select name="" id=""></select>
+            <select name="" id="day"></select>
         </td>
     </tr>
     <tr>
@@ -30,6 +30,11 @@
 
 getMovies();
 
+$("#movie").on("change",function(){
+    getDays($("#movie").val());
+})
+
+
 function getMovies(){
     let params={}
     location.href.split("?")[1].split("&").forEach(item => { params[item.split("=")[0]]=item.split("=")[1] })
@@ -39,11 +44,17 @@ function getMovies(){
         if(params.id){
             $(`#movie option[value="${params.id}"]`).attr("selected",true)
         }
+
+        getDays($("#movie").val());
+
     })
 }
 
-function getDays(){
+function getDays(id){
 
+    $.get("./api/get_days.php",{id},(days)=>{
+        $("#day").html(days);
+    })
 }
 
 </script>
