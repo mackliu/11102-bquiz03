@@ -77,7 +77,7 @@ $bookings=[];
     <div>您已經勾選<span id='tickets'></span>張票，最多可以購買四張票</div>
     <div class="ct">
         <button onclick="$('#orderForm,#booking').toggle();$('#booking').html('')">上一步</button>
-        <button>確定</button>
+        <button onclick="checkout()">確定</button>
     </div>
 </div>
 
@@ -104,9 +104,20 @@ $(".chk").on("change",function(){
         seats.splice(seats.indexOf($(this).val()),1)
     }
     ///console.log(seats)
+    $("#tickets").text(seats.length)
 
 })
 
+function checkout(){
+    $.post("./api/order.php",{seats,
+                              movie:$("#movie option:selected").text(),
+                              date:$("#day option:selected").val(),
+                              session:$("#session option:selected").val()},
+                (result)=>{
+                    console.log(result)
+                }
+            )
+}
 
 
 </script>
