@@ -10,10 +10,12 @@
     height:370px;
     background-image: url(./icon/03D04.png);
     box-sizing: border-box;
-    /**以下可以不用 */
+    padding-top:18px;
+}
+
+#block,.null-seat,.booking-seat{
     background-position: center;
     background-repeat: no-repeat;
-    padding-top:18px;
 }
 
 .seats{
@@ -29,31 +31,25 @@
     height:calc( 340px / 4);
 }
 
+.null-seat{
+    background-image: url('./icon/03D02.png');
+}
+
+.booking-seat{
+    background-image: url('./icon/03D03.png');
+}
 </style>
 
 <div id="block">
     <div class="seats">
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-
+        <?php
+            for($i=0;$i<20;$i++){
+                echo "<div class='null-seat'>";
+                
+                
+                echo "</div>";
+            }
+        ?>
     </div>
 </div>
 
