@@ -26,7 +26,7 @@
     <div style="width:14%;background:#ccc;text-align:center">訂購位置</div>
     <div style="width:14%;background:#ccc;text-align:center">操作</div>
 </div>
-<div>
+<div style="height:370px;overflow:auto">
 <?php
 $orders=$Order->all(" order by num desc");
 
