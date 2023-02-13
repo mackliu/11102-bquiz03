@@ -146,7 +146,7 @@ class DB{
                 $sql=$sql . $con;
             }
         }
-
+        //echo $sql;
         return $this->pdo->query($sql)->fetchColumn();
     }
 
@@ -170,6 +170,6 @@ function q($sql){
 
 $Trailer=new DB("trailer");
 $Movie=new DB("movie");
-
+$Order=new DB('orders');
 
 ?>
