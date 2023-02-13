@@ -14,7 +14,7 @@
             ?>
 
          </select>
-    <button>刪除</button>
+    <button onclick="qDel()">刪除</button>
 </div>
 
 <div style="display:flex;width:98%;margin:auto;justify-content:space-between">
@@ -56,5 +56,31 @@ foreach($orders as $order){
 }
 ?>
 
-
 </div>
+
+
+<script>
+function qDel(){
+
+let type=$("input[name='type']:checked").val();
+let value;
+switch(type){
+    case 'date':
+        value=$("#date").val();
+    break;
+    case 'movie':
+        value=$("#movie").val();
+    break;
+}
+
+let chk=confirm(`您確定要刪除${value}的所有訂單嗎?`);
+
+if(chk){
+    $.post("./api/qDel.php",{type,value},()=>{
+        location.reload();
+    })
+}
+
+}
+
+</script>
