@@ -13,7 +13,7 @@ for($i=1;$i<10;$i++){
     $Trailer->save($data);
 }
 
-$date=['2023-02-01','2023-02-02','2023-02-03','2023-02-04','2023-02-05'];
+$date=['2023-02-11','2023-02-12','2023-02-13','2023-02-10','2023-02-14'];
 
 for($i=1;$i<10;$i++){
     $data=[];
@@ -29,4 +29,20 @@ for($i=1;$i<10;$i++){
     $data['sh']=1;
     $data['rank']=$i;
     $Movie->save($data);
+}
+
+$date=['2023-02-11','2023-02-12','2023-02-13','2023-02-10','2023-02-14'];
+
+
+for($i=1;$i<10;$i++){
+    $data=[];
+    $data['movie']="院線片".$i;
+    $data['date']=$date[rand(0,4)];
+    $data['session']=$Order->session[rand(1,5)];
+    $data['qt']=rand(1,4);
+    for($j=0;$j<$data['qt'];$j++){
+        $data['seats'][]=rand(0,19);
+    }
+    $data['seats']=serialize($data['seats']);
+    $Order->save($data);
 }
