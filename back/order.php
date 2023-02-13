@@ -1,6 +1,20 @@
 <h2 class="ct">訂單清單</h2>
 <div>
     快速刪除：
+    依日期<input type="radio" name="type" value="date">
+         <input type="text" name="date" id="date">
+    依電影<input type="radio" name="type" value="movie">
+         <select name="movie" id="movie">
+            <?php
+                $orders=$Order->all(" group by `movie`");
+                foreach($orders as $order){
+                    echo "<option value='{$order['movie']}'>{$order['movie']}</option>";
+
+                }
+            ?>
+
+         </select>
+    <button>刪除</button>
 </div>
 
 <div style="display:flex;width:98%;margin:auto;justify-content:space-between">
