@@ -8,6 +8,7 @@ function sw(table,id1,id2){
 }
 
 
+
 function del(table,id,msg){
 
     let chk;
