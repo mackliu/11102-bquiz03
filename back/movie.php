@@ -4,7 +4,52 @@
 <div style="height:450px;overflow:auto;" id="MovieList">
 
 </div>
+
 <script>
+
+let source;
+
+function regDragEvent(){
+
+
+let instance;
+let nowDrag;
+let gap;
+$(".movie-item").on({
+    'dragstart':(e)=>{
+        instance=$(e.target).clone();
+        nowDrag=e.target;
+        let pos=$(nowDrag).offset();
+        let width=$(nowDrag).outerWidth();
+        gap={top:e.pageY-pos.top,left:e.pageX-pos.left};
+
+        $(instance).css({visibility:'hidden'})
+        $(nowDrag).css({position:'absolute',width:width,border:'1px solid #ccc','box-shadow':"3px 3px 5px #ccc"});
+        $(nowDrag).offset(pos)
+        $(nowDrag).before(instance);
+
+    },
+    'drag':function(e){
+
+
+        $(nowDrag).offset({top:e.pageY-gap.top,left:e.pageX-gap.left})
+    },
+    'dragenter':(e)=>{
+        e.preventDefault();
+        //console.log('enter',$(e.target).attr("id"))
+    },
+    'dragover':(e)=>{
+        e.preventDefault();
+        //console.log('over',$(e.target))
+    },
+    'dragend':(e)=>{
+
+    },
+    'drop':(e)=>{
+
+    }
+})
+}
 
 
 getAllMovies()
@@ -88,7 +133,8 @@ function renderList(){
         let show=movie.sh==1?'顯示':'隱藏';
 
         //宣告item 變數為一個電影的html模板，把相關的資料放入指定的位置中
-        let item=`<div style="display:flex;width:90%;margin:2px auto;padding:2px;position:relative;background:white" id="movie-${movie.id}">
+        let item=`<div style="display:flex;width:90%;margin:2px auto;padding:2px;position:relative;background:white" id="movie-${movie.id}" 
+                 class="movie-item"   draggable="true"" >
     <div style="width:15%">
         <img src="./upload/${movie.poster}" style="width:80px">
     </div>
@@ -116,6 +162,8 @@ function renderList(){
         //使用append的方式把電影資料逐筆放到MovieList中
         $("#MovieList").append(item)
     })
+
+    regDragEvent();
 }
 
 </script>
