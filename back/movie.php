@@ -11,35 +11,84 @@ getAllMovies()
 
 let movies
 
+/**
+ * 設定一個全域變數movies用來存放所有電影的原始資料
+ * 使用getAllMovies()取得電影資料後，把電影資料指定給變數movies
+ */
 function getAllMovies(){
     $.get("./api/movie_list.php",(list)=>{
         movies = JSON.parse(list)
+
+        //執行renderList()將movies中的資料以html的方式呈現在列表區
         renderList()
     })
 }
+
+//變更排序
 function swMovie(table,type,id1,id2){
+
+    //先將資料傳到後端去更新資料的排序內容
     $.post("./api/sw.php",{table,id1,id2},()=>{
-        let mv1Index=findMovie(id1)
-        let mv2Index=findMovie(id2)
+
+        //找到movies資料集中對應要變更排序的兩筆資料的索引值(在陣列中的位置)
+        let mv1Index=movies.findIndex(movie=>movie.id==id1)
+        let mv2Index=movies.findIndex(movie=>movie.id==id2)
         
+        //交換兩個筆資料的rank值
         let tmp=movies[mv1Index].rank
             movies[mv1Index].rank=movies[mv2Index].rank
             movies[mv2Index].rank=tmp
+
+            //根據rank值重新排序movies的所有資料
             movies.sort(function(a,b){return a.rank-b.rank;});
-            $("#MovieList").html("")
-            renderList() 
+        
+        //執行資料交換的動畫
+        exchange(type,id1,id2)
         
     })
 }
-function findMovie(id){
-    return movies.findIndex(movie=>movie.id==id);
+
+//執行移動動畫的函式
+function exchange(type,id1,id2){
+    let height=$(`#movie-${id1}`).outerHeight()
+    switch(type){
+        case 'up':
+            $(`#movie-${id1}`).animate({top:-1*height},1000,()=>{
+                //動畫執行完畢時，需要將列表區中的資料更新
+                //因此先把列表區中的資料清空,再執行renderList()來重建內容
+                $("#MovieList").html("")
+                renderList() 
+            });
+            $(`#movie-${id2}`).animate({top:height},1000);
+        break;
+        case 'down':
+            $(`#movie-${id1}`).animate({top:height},1000,()=>{
+                $("#MovieList").html("")
+                renderList() 
+            });
+            $(`#movie-${id2}`).animate({top:-1*height},1000);
+
+        break;
+    }
 }
+
+/**
+ * 根據全域變數movies來繪製電影資料
+ */
 function renderList(){
+
+    //使用迴圈來逐筆處理資料
     movies.forEach((movie,idx)=>{
+
+        //計算上一筆和下一筆的id
         let prev=(idx==0)?movie.id:movies[idx-1].id;
         let next=(idx==movies.length-1)?movie.id:movies[idx+1].id;
+
+        //判斷顯示隱藏的字串
         let show=movie.sh==1?'顯示':'隱藏';
-        let item=`<div style="display:flex;width:90%;margin:2px auto;padding:2px;position:relative" id="movie-${movie.id}">
+
+        //宣告item 變數為一個電影的html模板，把相關的資料放入指定的位置中
+        let item=`<div style="display:flex;width:90%;margin:2px auto;padding:2px;position:relative;background:white" id="movie-${movie.id}">
     <div style="width:15%">
         <img src="./upload/${movie.poster}" style="width:80px">
     </div>
@@ -64,7 +113,7 @@ function renderList(){
         </div>
     </div>
 </div>`;
-        //console.log(item)
+        //使用append的方式把電影資料逐筆放到MovieList中
         $("#MovieList").append(item)
     })
 }
