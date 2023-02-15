@@ -15,6 +15,8 @@ function regDragEvent(){
 let instance;
 let nowDrag;
 let gap;
+let direction;
+let move=0;
 $(".movie-item").on({
     'dragstart':(e)=>{
         instance=$(e.target).clone();
@@ -23,30 +25,56 @@ $(".movie-item").on({
         let width=$(nowDrag).outerWidth();
         gap={top:e.pageY-pos.top,left:e.pageX-pos.left};
 
-        $(instance).css({visibility:'hidden'})
-        $(nowDrag).css({position:'absolute',width:width,border:'1px solid #ccc','box-shadow':"3px 3px 5px #ccc"});
-        $(nowDrag).offset(pos)
+        $(instance).css({visibility:'hidden'}).attr("id",'instance')
+        $(nowDrag).css({position:'absolute',width:width,border:'1px solid #ccc','box-shadow':"3px 3px 5px #ccc",'z-index':99});
         $(nowDrag).before(instance);
+        $('#MovieList').append(nowDrag)
+        $(nowDrag).offset(pos)
+        move=e.pageY
 
     },
     'drag':function(e){
-
-
+        if(e.pageY-move>0){
+            direction='down'
+        }else if(e.pageY-move<0){
+            direction='up'
+        }
+        move=e.pageY
         $(nowDrag).offset({top:e.pageY-gap.top,left:e.pageX-gap.left})
+        
+        $(nowDrag).hide();
+        let el=document.elementFromPoint(e.pageX,e.pageY)
+        console.log($(el).attr("id"))
+        let edge=(direction=='down')?e.pageY+gap.top:$(nowDrag).offset().top;
+        let pos,height;
+            if($(el).attr('id')===undefined){
+                el=$(el).parents('.movie-item')
+            }
+            pos=$(el).offset();
+            height=$(el).outerHeight();
+        
+        let middle=pos.top+Math.floor(height/2)
+
+       if(direction == 'down' && edge>middle){
+            $(el).after(instance)
+        }else if(direction =='up' && edge<middle){
+           $(el).before(instance)
+       }
+        $(nowDrag).show()
     },
     'dragenter':(e)=>{
         e.preventDefault();
-        //console.log('enter',$(e.target).attr("id"))
+
     },
     'dragover':(e)=>{
+
         e.preventDefault();
-        //console.log('over',$(e.target))
     },
     'dragend':(e)=>{
 
     },
     'drop':(e)=>{
-
+       // $(instance).remove()
     }
 })
 }
@@ -133,7 +161,7 @@ function renderList(){
         let show=movie.sh==1?'顯示':'隱藏';
 
         //宣告item 變數為一個電影的html模板，把相關的資料放入指定的位置中
-        let item=`<div style="display:flex;width:90%;margin:2px auto;padding:2px;position:relative;background:white" id="movie-${movie.id}" 
+        let item=`<div style="display:flex;width:90%;margin:0 2px auto;padding:2px;position:relative;background:white" id="movie-${movie.id}" 
                  class="movie-item"   draggable="true"" >
     <div style="width:15%">
         <img src="./upload/${movie.poster}" style="width:80px">
