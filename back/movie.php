@@ -44,22 +44,23 @@ $(".movie-item").on({
         
         $(nowDrag).hide();
         let el=document.elementFromPoint(e.pageX,e.pageY)
-        console.log($(el).attr("id"))
-        let edge=(direction=='down')?e.pageY+gap.top:$(nowDrag).offset().top;
-        let pos,height;
+        if($(el).hasClass('movie-item') || $(el).parent().hasClass('movie-item')){
             if($(el).attr('id')===undefined){
                 el=$(el).parents('.movie-item')
             }
-            pos=$(el).offset();
-            height=$(el).outerHeight();
-        
-        let middle=pos.top+Math.floor(height/2)
-
-       if(direction == 'down' && edge>middle){
-            $(el).after(instance)
-        }else if(direction =='up' && edge<middle){
-           $(el).before(instance)
-       }
+            let edge=(direction=='down')?e.pageY+gap.top:$(nowDrag).offset().top;
+            let pos,height;
+                pos=$(el).offset();
+                height=$(el).outerHeight();
+            
+            let middle=pos.top+Math.floor(height/2)
+    
+           if(direction == 'down' && edge>middle){
+                $(el).after(instance)
+            }else if(direction =='up' && edge<middle){
+               $(el).before(instance)
+           }
+        }
         $(nowDrag).show()
     },
     'dragenter':(e)=>{
