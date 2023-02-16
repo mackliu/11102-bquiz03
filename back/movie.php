@@ -17,6 +17,8 @@ let nowDrag;
 let gap;
 let direction;
 let move=0;
+let dragId;
+let swId;
 $(".movie-item").on({
     'dragstart':(e)=>{
         instance=$(e.target).clone();
@@ -75,7 +77,10 @@ $(".movie-item").on({
 
     },
     'drop':(e)=>{
-       // $(instance).remove()
+        
+        $(nowDrag).css({position:'relative',width:'90%',border:0,'box-shadow':'unset',top:'unset',left:'unset','z-index':'unset'});
+        $(instance).before(nowDrag)
+        $(instance).remove()
     }
 })
 }
